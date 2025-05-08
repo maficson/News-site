@@ -1,52 +1,136 @@
-<!DOCTYPE html><html lang="uk">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swinopia News</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python проект</title>
   <style>
-    body { font-family: 'Arial', sans-serif; background: #f6f6f6; margin: 0; padding: 0; }
-    header { background: #ff69b4; color: white; padding: 20px; text-align: center; }
-    .container { max-width: 800px; margin: auto; padding: 20px; }
-    .news { background: white; padding: 15px; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    .news h2 { margin-top: 0; color: #e60073; }
-    .ad { background: #fff8dc; padding: 10px; margin: 20px 0; border-left: 5px solid #ffa500; }
-    footer { background: #eee; text-align: center; padding: 10px; margin-top: 30px; }
-    .btn { background: #ff69b4; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   </style>
-  <script>
-    const fakeNews = [
-      "Роблокс-гравець перетворився на свиню і заробив 1,000 Robux за годину!",
-      "Свиня з гри Swinopia стала мером віртуального міста!",
-      "Новий бот у Telegram вміє грати у змійку краще за людину!",
-      "Python-скрипт викрив справжню правду про котів в Інтернеті!",
-      "Розробник Swinopia отримав нагороду 'Найкрутіша свиня року'!"
-    ];function generateNews() {
-  const index = Math.floor(Math.random() * fakeNews.length);
-  document.getElementById('random-news').innerText = fakeNews[index];
-}
-
-  </script>
 </head>
 <body>
-  <header>
-    <h1>Swinopia News</h1>
-    <p>Найбожевільніші фейкові новини про свиней, ботів і твої проєкти!</p>
-  </header>  <div class="container">
-    <div class="news">
-      <h2 id="random-news">Натисни кнопку нижче для генерації фейкової новини</h2>
-      <button class="btn" onclick="generateNews()">Згенерувати фейк-новину</button>
-    </div><div class="ad">
-  <h3>Гра Swinopia вже чекає на тебе!</h3>
-  <p>Стань свинею, бийся мечем і шукай яблука! Перевір <a href="#">гру прямо зараз</a>!</p>
-</div>
+  <h1>Добро пожаловать!</h1>
+  <p>Это мой Python-скрипт для поиска слова на сайтах.</p>
 
-<div class="ad">
-  <h3>Спробуй нашого Telegram-бота</h3>
-  <p>Грай у змійку, міни, отримуй рекорди! Підпишись на <a href="#">наш канал</a>!</p>
-</div>
+  <h2>Telegram-канал:</h2>
+  <p><a href="https://t.me/твоя_ссылка" target="_blank">@твой_канал</a></p>
 
-  </div>  <footer>
-    &copy; 2025 Swinopia Team. Всі новини — фейкові, але веселі.
-  </footer>
+  <h2>Код проекта:</h2>
+  <pre id="code">
+from bs4 import BeautifulSoup
+import random
+from googlesearch import search  # Потрібно встановити googlesearch-python через pip
+
+async def find_word_in_page(session, url, word):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    }
+    try:
+        async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=10)) as response:
+            if response.status != 200:
+                return None
+
+            page_content = await response.text()
+            soup = BeautifulSoup(page_content, 'html.parser')
+
+            if word.lower() in soup.get_text().lower():
+                return url
+            return None
+    except Exception as e:
+        print(f"Error on {url}: {e}")
+        return None
+
+async def search_word_in_sites(word, urls):
+    async with aiohttp.ClientSession() as session:
+        tasks = []
+        for url in urls:
+            tasks.append(find_word_in_page(session, url, word))
+
+        results = await asyncio.gather(*tasks)
+        return [url for url in results if url]
+
+def generate_random_sites_from_google(query, num_sites=200):
+    return list(search(query, num_results=num_sites))
+
+def generate_top_sites(num_sites=100):
+    top_sites = [
+        "https://google.com", "https://youtube.com", "https://facebook.com", "https://baidu.com", "https://wikipedia.org",
+        "https://amazon.com", "https://twitter.com", "https://instagram.com", "https://yahoo.com", "https://reddit.com",
+        "https://linkedin.com", "https://live.com", "https://vk.com", "https://tumblr.com", "https://pinterest.com",
+        "https://wordpress.com", "https://microsoft.com", "https://netflix.com", "https://ebay.com", "https://t.co",
+        "https://apple.com", "https://github.com", "https://cnn.com", "https://bbc.com", "https://quora.com",
+        "https://wordpress.org", "https://myspace.com", "https://yandex.ru", "https://telegram.org", "https://stackoverflow.com",
+        "https://forbes.com", "https://bbc.co.uk", "https://amazon.co.uk", "https://merriam-webster.com", "https://bbc.ca"
+    ]
+    return random.sample(top_sites, num_sites)
+
+search_word = input("Введите слово для поиска на сайтах (например Python): ")
+print("Выберите метод поиска:")
+print("1. Поиск через Google")
+print("2. Поиск через топ-100 популярных сайтов")
+method = input("Ваш выбор (1 или 2): ")
+
+if method == '1':
+    query = search_word
+    urls_to_search = generate_random_sites_from_google(query, 100)
+elif method == '2':
+    urls_to_search = generate_top_sites(100)
+else:
+    print("Неверный выбор!")
+    exit()
+
+found_links = asyncio.run(search_word_in_sites(search_word, urls_to_search))
+
+if found_links:
+    print("Сайты, где найдено слово:")
+    for link in found_links:
+        print(link)
+else:
+    print(f"Слово '{search_word}' не найдено на указанных сайтах.")
+  </pre>
+  <button onclick="copyCode()">Скопировать код</button>
+
+  <script>
+    function copyCode() {
+      const code = document.getElementById("code").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Код скопирован!");
+      });
+    }
+  </script>
 </body>
-      </html>
+</html>
