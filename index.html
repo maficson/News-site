@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Документація про Степана Бандеру</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+            background: #f9f9f9;
+            color: #222;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #004d00;
+        }
+        h2 {
+            border-bottom: 2px solid #004d00;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        p {
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        nav {
+            margin-bottom: 30px;
+            background: #e0f2e0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        nav a {
+            margin-right: 15px;
+            color: #004d00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        #question-container {
+            background: #d4f1d4;
+            border: 2px solid #004d00;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #question-container button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #004d00;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        #question-container button:hover {
+            background-color: #006600;
+        }
+        #stats {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #004d00;
+        }
+        #middle-image {
+            display: block;
+            margin: 40px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,77,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Документація про Степана Бандеру</h1>
+        <p>Коротка історія та біографія видатного українського діяча</p>
+    </header>
+
+    <nav>
+        <a href="#biography">Біографія</a>
+        <a href="#political-activity">Політична діяльність</a>
+        <a href="#legacy">Спадщина</a>
+        <a href="#sources">Джерела</a>
+    </nav>
+
+    <div id="question-container">
+        <p><strong>Ти любиш Україну?</strong></p>
+        <button id="btn-yes">Так</button>
+        <button id="btn-no">Ні</button>
+        <div id="stats">
+            Так: <span id="yes-count">0</span> |
+            Ні: <span id="no-count">0</span>
+        </div>
+    </div>
+
+    <section id="biography">
+        <h2>Біографія</h2>
+        <p>Степан Андрійович Бандера (1 січня 1909 – 15 жовтня 1959) — український політичний діяч, провідник Організації українських націоналістів (ОУН).</p>
+        <p>Народився в селі Старий Угринів, що на Івано-Франківщині. Закінчив Львівський університет. Активно брав участь у національно-визвольному русі України в міжвоєнний період.</p>
+    </section>
+
+    <img id="middle-image" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Stepan_Bandera_1940.jpg" alt="Степан Бандера" />
+
+    <section id="political-activity">
+        <h2>Політична діяльність</h2>
+        <p>У 1940-х роках Бандера очолив фракцію ОУН-Б, яка відстоювала ідеї незалежної України. Брав активну участь у боротьбі проти радянської та нацистської окупацій.</p>
+        <p>У 1941 році проголосив Акт відновлення Української Держави у Львові, що викликало реакцію з боку нацистів та призвело до його арешту.</p>
+    </section>
+
+    <section id="legacy">
+        <h2>Спадщина</h2>
+        <p>Степан Бандера залишається однією з найсуперечливіших постатей в українській історії. Його вважають символом боротьби за незалежність, але також критикують за методи та політичні зв'язки.</p>
+        <p>В Україні існує багато пам'ятників і меморіалів, присвячених йому, а його ім'я часто використовується в політичному контексті.</p>
+    </section>
+
+    <section id="sources">
+        <h2>Джерела</h2>
+        <ul>
+            <li><a href="https://uk.wikipedia.org/wiki/Бандера_Степан_Андрійович" target="_blank" rel="noopener">Вікіпедія — Степан Бандера</a></li>
+            <li><a href="https://www.encyclopediaofukraine.com/display.asp?linkpath=pages%5CB%5CA%5CBanderaStepan.htm" target="_blank" rel="noopener">Encyclopedia of Ukraine — Bandera Stepan</a></li>
+            <li><a href="https://www.britannica.com/biography/Stepan-Bandera" target="_blank" rel="noopener">Britannica — Stepan Bandera</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        &copy; 2025 Документація про Степана Бандеру
+    </footer>
+
+    <script>
+        const yesBtn = document.getElementById('btn-yes');
+        const noBtn = document.getElementById('btn-no');
+        const yesCountSpan = document.getElementById('yes-count');
+        const noCountSpan = document.getElementById('no-count');
+
+        // Зчитуємо з localStorage, або ставимо 0
+        let yesCount = parseInt(localStorage.getItem('yesCount')) || 0;
+        let noCount = parseInt(localStorage.getItem('noCount')) || 0;
+
+        // Відобразити статистику при завантаженні
+        yesCountSpan.textContent = yesCount;
+        noCountSpan.textContent = noCount;
+
+        yesBtn.addEventListener('click', () => {
+            yesCount++;
+            yesCountSpan.textContent = yesCount;
+            localStorage.setItem('yesCount', yesCount);
+            disableButtons();
+        });
+
+        noBtn.addEventListener('click', () => {
+            noCount++;
+            noCountSpan.textContent = noCount;
+            localStorage.setItem('noCount', noCount);
+            disableButtons();
+        });
+
+        function disableButtons() {
+            yesBtn.disabled = true;
+            noBtn.disabled = true;
+            yesBtn.style.cursor = 'default';
+            noBtn.style.cursor = 'default';
+            yesBtn.style.backgroundColor = '#888';
+            noBtn.style.backgroundColor = '#888';
+        }
+
+        // Якщо користувач уже голосував, відключаємо кнопки
+        if(localStorage.getItem('voted')) {
+            disableButtons();
+        }
+
+        // Записуємо факт голосування
+        yesBtn.addEventListener('click', () => localStorage.setItem('voted', 'true'));
+        noBtn.addEventListener('click', () => localStorage.setItem('voted', 'true'));
+    </script>
+</body>
+</html>
