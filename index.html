@@ -116,7 +116,7 @@
         <p>Народився в селі Старий Угринів, що на Івано-Франківщині. Закінчив Львівський університет. Активно брав участь у національно-визвольному русі України в міжвоєнний період.</p>
     </section>
 
-    <img id="middle-image" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Stepan_Bandera_1940.jpg" alt="Степан Бандера" />
+    <img id="middle-image" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Stepan_Bandera_1937.jpg" alt="Степан Бандера" />
 
     <section id="political-activity">
         <h2>Політична діяльність</h2>
@@ -161,6 +161,7 @@
             yesCount++;
             yesCountSpan.textContent = yesCount;
             localStorage.setItem('yesCount', yesCount);
+            localStorage.setItem('voted', 'true');
             disableButtons();
         });
 
@@ -168,6 +169,7 @@
             noCount++;
             noCountSpan.textContent = noCount;
             localStorage.setItem('noCount', noCount);
+            localStorage.setItem('voted', 'true');
             disableButtons();
         });
 
@@ -184,10 +186,6 @@
         if(localStorage.getItem('voted')) {
             disableButtons();
         }
-
-        // Записуємо факт голосування
-        yesBtn.addEventListener('click', () => localStorage.setItem('voted', 'true'));
-        noBtn.addEventListener('click', () => localStorage.setItem('voted', 'true'));
     </script>
 </body>
-</html>
+    </html>
